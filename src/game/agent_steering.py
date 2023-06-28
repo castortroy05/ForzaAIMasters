@@ -50,20 +50,20 @@ class Agent:
         # Defining the batch size
         batch_size = 64
         # Checking if the deep learning model is not empty
-        if self.deep_learning_model is not None:
+        if self.Q_eval is not None:
             # Checking if the length of the memory is greater than the batch size
             if len(self.memory) > batch_size:
                 # Getting a random sample of transitions from the memory
-                sample = self.memory.sample(batch_size)
+                sample = random.sample(self.memory, batch_size)
                 # Getting the states, actions, rewards, and new states from the random sample
                 states = np.array([transition[0] for transition in sample])
                 actions = np.array([transition[1] for transition in sample])
                 rewards = np.array([transition[2] for transition in sample])
                 new_states = np.array([transition[3] for transition in sample])
                 # Predicting the Q values of the states using the deep learning model
-                q_values = self.deep_learning_model.predict(states)
+                q_values = self.Q_eval.predict(states)
                 # Predicting the Q values of the new states using the deep learning model
-                new_q_values = self.deep_learning_model.predict(new_states)
+                new_q_values = self.Q_eval.predict(new_states)
                 # Looping through the sample
                 for index in range(len(sample)):
                     # Checking if the done flag is true
@@ -74,7 +74,7 @@ class Agent:
                         # Updating the Q values of the actions
                         q_values[index][actions[index]] = rewards[index] + self.gamma * np.max(new_q_values[index])
                 # Training the deep learning model with the updated Q values of the actions
-                self.deep_learning_model.fit(states, q_values, epochs=1, verbose=0)
+                self.Q_eval.fit(states, q_values, epochs=1, verbose=0)
 
 
     # Defining a method to store a transition in memory
