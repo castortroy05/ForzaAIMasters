@@ -7,11 +7,25 @@ from collections import deque
 import random
 import vgamepad as vg
 from game_capture import GameEnvironment
+gpus = tf.config.experimental.list_physical_devices('GPU')
+tf.config.run_functions_eagerly(True)
+tf.data.experimental.enable_debug_mode()
+if gpus:
+    try:
+        # Set memory growth for the GPUs to be used
+        for gpu in gpus:
+            tf.config.experimental.set_memory_growth(gpu, True)
+        # Set GPU to be used
+        tf.config.experimental.set_visible_devices(gpus[1], 'GPU')  # Use the second GPU
+    except RuntimeError as e:
+        print(e)
 
 class Agent:
     def __init__(self, input_dims, n_actions, mem_size, eps, eps_min, eps_dec, gamma, q_eval_name, q_target_name, replace):
-        self.Q_eval = self.build_deep_learning_model(input_dims, n_actions)
-        self.Q_target = self.build_deep_learning_model(input_dims, n_actions)
+        self.Q_eval = self.build_deep_learning_model(input_dims)
+        self.Q_eval.compile(optimizer=Adam(), loss='mse', run_eagerly=True)
+        print(f"self.Q_eval.summary(): {self.Q_eval.summary()}")
+        self.Q_target = self.build_deep_learning_model(input_dims)
         self.memory = deque(maxlen=mem_size)
         self.eps = eps
         self.eps_min = eps_min
@@ -24,11 +38,11 @@ class Agent:
         self.q_target_name = q_target_name
         self.controller = vg.VX360Gamepad()
 
-    def build_deep_learning_model(self, input_dims, n_actions):
+    def build_deep_learning_model(self, input_dims):
         model = tf.keras.models.Sequential()
         model.add(tf.keras.layers.Dense(256, input_dim=input_dims, activation='relu'))
         model.add(tf.keras.layers.Dense(256, activation='relu'))
-        model.add(tf.keras.layers.Dense(n_actions, activation=None))
+        model.add(tf.keras.layers.Dense(1, activation='tanh'))
         model.compile(optimizer=Adam(), loss='mse')
         return model
 
@@ -43,24 +57,66 @@ class Agent:
             actions = self.Q_eval.predict(state)
             action = np.argmax(actions)
         return action
+    
+    def preprocess_input_data(self, img):
+        # Extract relevant features from the image (e.g., color histograms, edge detection, etc.)
+        features = []
+        if len(img.shape) == 3:  # If the img array is 3-dimensional
+            for i in range(3):  # For each color channel (R, G, B)
+                features.append(np.mean(img[:,:,i]))
+                features.append(np.std(img[:,:,i]))
+        elif len(img.shape) == 1:  # If the img array is 1-dimensional
+            features.append(np.mean(img))
+            features.append(np.std(img))
+        else:
+            raise ValueError(f"Unexpected shape of img array: {img.shape}")
+        # Add additional features to match the expected input shape of the model
+        # features.extend([0, 0, 0, 0])
+        while len(features) < 6:
+            features.append(0)
+        return np.array(features)
 
-    def learn(self):
+    def learn(self, action):
         if len(self.memory) < 32:
             return
         if self.learn_step % self.replace == 0:
             self.Q_target.set_weights(self.Q_eval.get_weights())
         minibatch = random.sample(self.memory, 32)
         state, action, reward, new_state, done = zip(*minibatch)
-        state = np.array(state)
+        # for s in state:
+            # print(f"Shape of element in state steering: {s.shape}")
+        # Filter out elements with unexpected shapes
+        state = [s for s in state if s.shape == (634, 1067, 3)]
+        state = np.array([self.preprocess_input_data(s) for s in state])
         action = np.array(action)
         reward = np.array(reward)
-        new_state = np.array(new_state)
+        new_state = np.array([self.preprocess_input_data(s) for s in new_state])
         done = np.array(done)
+        # Filter out elements with unexpected shapes
+        valid_indices = [i for i, s in enumerate(state) if s.shape == (634, 1067, 3)]
+        state = [state[i] for i in valid_indices]
+        state = np.array(state)
+        action = [action[i] for i in valid_indices]
+        action = np.array(action)
+        reward = [reward[i] for i in valid_indices]
+        reward = np.array(reward)
+        new_state = [new_state[i] for i in valid_indices]
+        new_state = np.array(new_state)
+        done = [done[i] for i in valid_indices]
+        done = np.array(done)
+        print(f"State shape: {state.shape}, State type: {type(state)}")
+        if state.size == 0:
+            print("State is empty. Skipping steering prediction.")
+            return
         action_values = self.Q_eval.predict(state)
         next_action_values = self.Q_target.predict(new_state)
         max_next_action_values = np.max(next_action_values, axis=1)
         Q_target = action_values.copy()
-        batch_index = np.arange(32, dtype=int)
+        batch_index = np.arange(Q_target.shape[0])
+        # print("batch_index:", batch_index)
+        # print("Q_target shape:", Q_target.shape)
+        # print(f"Expected input shape: {self.Q_eval.input_shape}")
+        # print(f"State shape: {state.shape}")
         Q_target[batch_index, action] = reward + self.gamma * max_next_action_values * ~done
         self.Q_eval.train_on_batch(state, Q_target)
         if self.eps > self.eps_min:
@@ -71,6 +127,7 @@ class Agent:
         game_env = GameEnvironment()
         for episode in range(num_episodes):
             state = game_env.capture()
+            state = self.preprocess_input_data(state)
             done = False
             score = 0
             while not done:
@@ -83,16 +140,12 @@ class Agent:
                 score += reward
                 self.store_transition(state, action, reward, next_state, done)
                 state = next_state
-                self.learn()
-                if action == 0:
-                    print("Action chosen: Left")
-                elif action == 1:
-                    print("Action chosen: Right")
+                self.learn(action)  # Pass the chosen action to the learn function
+
+                # Pass the chosen actions to the display method
+                game_env.display(next_state, predicted_steering_action=action, actual_steering_action=action, position_red=position_red, position_blue=position_blue)
             print(f'Episode: {episode}, Score: {score}')
-    try:
-        self.Q_eval.save('model.h5')
-    except Exception as e:
-        print(e)
+
 
 
 
@@ -108,8 +161,9 @@ class Agent:
             raise Exception("No such file exists")
 
     def simulate_action(self, action):
-        if action == 0:
-            self.controller.left_stick_x = -1.0  # Simulate left turn
-        elif action == 1:
-            self.controller.left_stick_x = 1.0   # Simulate right turn
+        # action should be a value between -1 and 1 representing the degree of steering
+        x_value = int(action * 32767)
+        self.controller.left_joystick(x_value=x_value, y_value=0)
         self.controller.update()
+
+

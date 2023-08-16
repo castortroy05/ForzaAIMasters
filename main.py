@@ -1,8 +1,9 @@
 import sys
 import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # Suppress TensorFlow logging (1)
+#show full Tensorflow logs
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  
 import tensorflow as tf
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"  # Set the GPU to use (0, 1) for multiple GPUs
+# os.environ["CUDA_VISIBLE_DEVICES"] = "1"  # Set the GPU to use (0, 1) for multiple GPUs
 
 sys.path.append(os.path.join(os.getcwd(), 'src/game/'))  # Add the 'game' folder to the system path
 
@@ -15,8 +16,14 @@ from IPython.core.interactiveshell import InteractiveShell
 
 def is_game_running(window_title):
     """Check if the game window is currently running."""
-    windows = gw.getWindowsWithTitle(window_title)
-    return len(windows) > 0
+    try:
+        windows = gw.getWindowsWithTitle(window_title)
+        if windows:
+            return True
+        else:
+            return False
+    except:
+        return False
 
 def run_notebook(notebook_path):
     """Run a Jupyter notebook."""
@@ -53,7 +60,7 @@ def main():
             if choice == "1":
                 # Initialize and train the steering agent
                 steering_agent = agent_steering.Agent(
-                    input_dims=10,
+                    input_dims=6,
                     n_actions=2, mem_size=1000,
                     eps=1.0,
                     eps_min=0.01,
@@ -68,7 +75,7 @@ def main():
             elif choice == "2":
                 # Initialize and train the speed agent
                 speed_agent = agent_speed.Agent(
-                    input_dims=10,
+                    input_dims=6,
                     n_actions=2, mem_size=1000,
                     eps=1.0,
                     eps_min=0.01,
@@ -83,7 +90,7 @@ def main():
             elif choice == "3":
                 # Initialize and train both agents
                 steering_agent = agent_steering.Agent(
-                    input_dims=10,
+                    input_dims=6,
                     n_actions=2, mem_size=1000,
                     eps=1.0,
                     eps_min=0.01,
@@ -94,7 +101,7 @@ def main():
                     replace=100
                     )
                 speed_agent = agent_speed.Agent(
-                    input_dims=10,
+                    input_dims=6,
                     n_actions=2, mem_size=1000,
                     eps=1.0,
                     eps_min=0.01,
