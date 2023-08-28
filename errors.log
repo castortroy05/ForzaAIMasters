@@ -1,0 +1,214 @@
+2023-08-28 23:03:25,895 - ERROR - Error in train_steering: '_thread._local' object has no attribute 'srcdc'
+2023-08-28 23:03:25,898 - ERROR - Error in train_speed: '_thread._local' object has no attribute 'srcdc'
+2023-08-28 23:03:25,899 - ERROR - Traceback (most recent call last):
+  File "F:\Msc_Project\src/game\training.py", line 69, in wrapped_train_steering
+    train_steering(agent, episodes)
+  File "F:\Msc_Project\src/game\training.py", line 16, in train_steering
+    state = agent.game_env.capture()
+  File "F:\Msc_Project\src/game\game_env.py", line 16, in capture
+    return self.img_capture.capture()
+  File "F:\Msc_Project\src/game\image_capture.py", line 13, in capture
+    screenshot = self.sct.grab(self.monitor)
+  File "C:\Users\Antony\anaconda3\envs\ds\lib\site-packages\mss\base.py", line 90, in grab
+    screenshot = self._grab_impl(monitor)
+  File "C:\Users\Antony\anaconda3\envs\ds\lib\site-packages\mss\windows.py", line 235, in _grab_impl
+    srcdc, memdc = self._handles.srcdc, self._handles.memdc
+AttributeError: '_thread._local' object has no attribute 'srcdc'
+
+2023-08-28 23:03:25,900 - ERROR - Traceback (most recent call last):
+  File "F:\Msc_Project\src/game\training.py", line 77, in wrapped_train_speed
+    train_speed(agent, episodes)
+  File "F:\Msc_Project\src/game\training.py", line 39, in train_speed
+    state = agent.game_env.capture()
+  File "F:\Msc_Project\src/game\game_env.py", line 16, in capture
+    return self.img_capture.capture()
+  File "F:\Msc_Project\src/game\image_capture.py", line 13, in capture
+    screenshot = self.sct.grab(self.monitor)
+  File "C:\Users\Antony\anaconda3\envs\ds\lib\site-packages\mss\base.py", line 90, in grab
+    screenshot = self._grab_impl(monitor)
+  File "C:\Users\Antony\anaconda3\envs\ds\lib\site-packages\mss\windows.py", line 235, in _grab_impl
+    srcdc, memdc = self._handles.srcdc, self._handles.memdc
+AttributeError: '_thread._local' object has no attribute 'srcdc'
+
+2023-08-28 23:17:46,425 - ERROR - Error in train_steering: 'tuple' object has no attribute 'shape'
+2023-08-28 23:17:46,426 - ERROR - Error in train_speed: 'tuple' object has no attribute 'shape'
+2023-08-28 23:17:46,427 - ERROR - Traceback (most recent call last):
+  File "F:\Msc_Project\src/game\training.py", line 93, in wrapped_train_speed
+    train_speed(agent, screen, detection_info, episodes)
+  File "F:\Msc_Project\src/game\training.py", line 49, in train_speed
+    state = preprocess_input_data(screen)
+  File "F:\Msc_Project\src/game\image_processing.py", line 14, in preprocess_input_data
+    if len(img.shape) == 3:  # If the img array is 3-dimensional
+AttributeError: 'tuple' object has no attribute 'shape'
+
+2023-08-28 23:17:46,427 - ERROR - Traceback (most recent call last):
+  File "F:\Msc_Project\src/game\training.py", line 85, in wrapped_train_steering
+    train_steering(agent, screen, detection_info, episodes)
+  File "F:\Msc_Project\src/game\training.py", line 22, in train_steering
+    state = preprocess_input_data(screen)
+  File "F:\Msc_Project\src/game\image_processing.py", line 14, in preprocess_input_data
+    if len(img.shape) == 3:  # If the img array is 3-dimensional
+AttributeError: 'tuple' object has no attribute 'shape'
+
+2023-08-28 23:26:58,501 - ERROR - Error in train_steering: 'tuple' object has no attribute 'shape'
+2023-08-28 23:26:58,502 - ERROR - Error in train_speed: 'tuple' object has no attribute 'shape'
+2023-08-28 23:26:58,503 - ERROR - Traceback (most recent call last):
+  File "F:\Msc_Project\src/game\training.py", line 86, in wrapped_train_steering
+    train_steering(agent, screen, detection_info, episodes)
+  File "F:\Msc_Project\src/game\training.py", line 23, in train_steering
+    state = preprocess_input_data(screen)
+  File "F:\Msc_Project\src/game\image_processing.py", line 14, in preprocess_input_data
+    if len(img.shape) == 3:  # If the img array is 3-dimensional
+AttributeError: 'tuple' object has no attribute 'shape'
+
+2023-08-28 23:26:58,503 - ERROR - Traceback (most recent call last):
+  File "F:\Msc_Project\src/game\training.py", line 94, in wrapped_train_speed
+    train_speed(agent, screen, detection_info, episodes)
+  File "F:\Msc_Project\src/game\training.py", line 50, in train_speed
+    state = preprocess_input_data(screen)
+  File "F:\Msc_Project\src/game\image_processing.py", line 14, in preprocess_input_data
+    if len(img.shape) == 3:  # If the img array is 3-dimensional
+AttributeError: 'tuple' object has no attribute 'shape'
+
+2023-08-28 23:34:03,686 - ERROR - Error in train_steering: 'tuple' object has no attribute 'shape'
+2023-08-28 23:34:03,687 - ERROR - Error in train_speed: 'tuple' object has no attribute 'shape'
+2023-08-28 23:34:03,688 - ERROR - Traceback (most recent call last):
+  File "F:\Msc_Project\src/game\training.py", line 88, in wrapped_train_steering
+    train_steering(agent, screen, detection_info, episodes)
+  File "F:\Msc_Project\src/game\training.py", line 23, in train_steering
+    state = preprocess_input_data(screen)
+  File "F:\Msc_Project\src/game\image_processing.py", line 14, in preprocess_input_data
+    if len(img.shape) == 3:  # If the img array is 3-dimensional
+AttributeError: 'tuple' object has no attribute 'shape'
+
+2023-08-28 23:34:03,688 - ERROR - Traceback (most recent call last):
+  File "F:\Msc_Project\src/game\training.py", line 96, in wrapped_train_speed
+    train_speed(agent, screen, detection_info, episodes)
+  File "F:\Msc_Project\src/game\training.py", line 50, in train_speed
+    state = preprocess_input_data(screen)
+  File "F:\Msc_Project\src/game\image_processing.py", line 14, in preprocess_input_data
+    if len(img.shape) == 3:  # If the img array is 3-dimensional
+AttributeError: 'tuple' object has no attribute 'shape'
+
+2023-08-28 23:34:45,798 - ERROR - Error in train_steering: 'tuple' object has no attribute 'shape'
+2023-08-28 23:34:45,799 - ERROR - Error in train_speed: 'tuple' object has no attribute 'shape'
+2023-08-28 23:34:45,800 - ERROR - Traceback (most recent call last):
+  File "F:\Msc_Project\src/game\training.py", line 88, in wrapped_train_steering
+    train_steering(agent, screen, detection_info, episodes)
+  File "F:\Msc_Project\src/game\training.py", line 23, in train_steering
+    state = preprocess_input_data(screen)
+  File "F:\Msc_Project\src/game\image_processing.py", line 14, in preprocess_input_data
+    if len(img.shape) == 3:  # If the img array is 3-dimensional
+AttributeError: 'tuple' object has no attribute 'shape'
+
+2023-08-28 23:34:45,801 - ERROR - Traceback (most recent call last):
+  File "F:\Msc_Project\src/game\training.py", line 96, in wrapped_train_speed
+    train_speed(agent, screen, detection_info, episodes)
+  File "F:\Msc_Project\src/game\training.py", line 50, in train_speed
+    state = preprocess_input_data(screen)
+  File "F:\Msc_Project\src/game\image_processing.py", line 14, in preprocess_input_data
+    if len(img.shape) == 3:  # If the img array is 3-dimensional
+AttributeError: 'tuple' object has no attribute 'shape'
+
+2023-08-28 23:34:46,837 - ERROR - Error in train_steering: 'tuple' object has no attribute 'shape'
+2023-08-28 23:34:46,837 - ERROR - Error in train_speed: 'tuple' object has no attribute 'shape'
+2023-08-28 23:34:46,837 - ERROR - Traceback (most recent call last):
+  File "F:\Msc_Project\src/game\training.py", line 88, in wrapped_train_steering
+    train_steering(agent, screen, detection_info, episodes)
+  File "F:\Msc_Project\src/game\training.py", line 23, in train_steering
+    state = preprocess_input_data(screen)
+  File "F:\Msc_Project\src/game\image_processing.py", line 14, in preprocess_input_data
+    if len(img.shape) == 3:  # If the img array is 3-dimensional
+AttributeError: 'tuple' object has no attribute 'shape'
+
+2023-08-28 23:34:46,838 - ERROR - Traceback (most recent call last):
+  File "F:\Msc_Project\src/game\training.py", line 96, in wrapped_train_speed
+    train_speed(agent, screen, detection_info, episodes)
+  File "F:\Msc_Project\src/game\training.py", line 50, in train_speed
+    state = preprocess_input_data(screen)
+  File "F:\Msc_Project\src/game\image_processing.py", line 14, in preprocess_input_data
+    if len(img.shape) == 3:  # If the img array is 3-dimensional
+AttributeError: 'tuple' object has no attribute 'shape'
+
+2023-08-28 23:34:47,853 - ERROR - Error in train_steering: 'tuple' object has no attribute 'shape'
+2023-08-28 23:34:47,854 - ERROR - Traceback (most recent call last):
+  File "F:\Msc_Project\src/game\training.py", line 88, in wrapped_train_steering
+    train_steering(agent, screen, detection_info, episodes)
+  File "F:\Msc_Project\src/game\training.py", line 23, in train_steering
+    state = preprocess_input_data(screen)
+  File "F:\Msc_Project\src/game\image_processing.py", line 14, in preprocess_input_data
+    if len(img.shape) == 3:  # If the img array is 3-dimensional
+AttributeError: 'tuple' object has no attribute 'shape'
+
+2023-08-28 23:34:47,854 - ERROR - Error in train_speed: 'tuple' object has no attribute 'shape'
+2023-08-28 23:34:47,854 - ERROR - Traceback (most recent call last):
+  File "F:\Msc_Project\src/game\training.py", line 96, in wrapped_train_speed
+    train_speed(agent, screen, detection_info, episodes)
+  File "F:\Msc_Project\src/game\training.py", line 50, in train_speed
+    state = preprocess_input_data(screen)
+  File "F:\Msc_Project\src/game\image_processing.py", line 14, in preprocess_input_data
+    if len(img.shape) == 3:  # If the img array is 3-dimensional
+AttributeError: 'tuple' object has no attribute 'shape'
+
+2023-08-28 23:34:48,770 - ERROR - Error in train_steering: 'tuple' object has no attribute 'shape'
+2023-08-28 23:34:48,771 - ERROR - Traceback (most recent call last):
+  File "F:\Msc_Project\src/game\training.py", line 88, in wrapped_train_steering
+    train_steering(agent, screen, detection_info, episodes)
+  File "F:\Msc_Project\src/game\training.py", line 23, in train_steering
+    state = preprocess_input_data(screen)
+  File "F:\Msc_Project\src/game\image_processing.py", line 14, in preprocess_input_data
+    if len(img.shape) == 3:  # If the img array is 3-dimensional
+AttributeError: 'tuple' object has no attribute 'shape'
+
+2023-08-28 23:34:48,771 - ERROR - Error in train_speed: 'tuple' object has no attribute 'shape'
+2023-08-28 23:34:48,772 - ERROR - Traceback (most recent call last):
+  File "F:\Msc_Project\src/game\training.py", line 96, in wrapped_train_speed
+    train_speed(agent, screen, detection_info, episodes)
+  File "F:\Msc_Project\src/game\training.py", line 50, in train_speed
+    state = preprocess_input_data(screen)
+  File "F:\Msc_Project\src/game\image_processing.py", line 14, in preprocess_input_data
+    if len(img.shape) == 3:  # If the img array is 3-dimensional
+AttributeError: 'tuple' object has no attribute 'shape'
+
+2023-08-28 23:34:49,621 - ERROR - Error in train_steering: 'tuple' object has no attribute 'shape'
+2023-08-28 23:34:49,621 - ERROR - Traceback (most recent call last):
+  File "F:\Msc_Project\src/game\training.py", line 88, in wrapped_train_steering
+    train_steering(agent, screen, detection_info, episodes)
+  File "F:\Msc_Project\src/game\training.py", line 23, in train_steering
+    state = preprocess_input_data(screen)
+  File "F:\Msc_Project\src/game\image_processing.py", line 14, in preprocess_input_data
+    if len(img.shape) == 3:  # If the img array is 3-dimensional
+AttributeError: 'tuple' object has no attribute 'shape'
+
+2023-08-28 23:34:49,621 - ERROR - Error in train_speed: 'tuple' object has no attribute 'shape'
+2023-08-28 23:34:49,622 - ERROR - Traceback (most recent call last):
+  File "F:\Msc_Project\src/game\training.py", line 96, in wrapped_train_speed
+    train_speed(agent, screen, detection_info, episodes)
+  File "F:\Msc_Project\src/game\training.py", line 50, in train_speed
+    state = preprocess_input_data(screen)
+  File "F:\Msc_Project\src/game\image_processing.py", line 14, in preprocess_input_data
+    if len(img.shape) == 3:  # If the img array is 3-dimensional
+AttributeError: 'tuple' object has no attribute 'shape'
+
+2023-08-28 23:35:24,891 - ERROR - <class 'numpy.ndarray'>
+2023-08-28 23:35:24,891 - ERROR - (624, 998, 3)
+2023-08-28 23:35:25,248 - ERROR - Error in train_steering: 'tuple' object has no attribute 'shape'
+2023-08-28 23:35:25,248 - ERROR - Error in train_speed: 'tuple' object has no attribute 'shape'
+2023-08-28 23:35:25,249 - ERROR - Traceback (most recent call last):
+  File "F:\Msc_Project\src/game\training.py", line 88, in wrapped_train_steering
+    train_steering(agent, screen, detection_info, episodes)
+  File "F:\Msc_Project\src/game\training.py", line 23, in train_steering
+    state = preprocess_input_data(screen)
+  File "F:\Msc_Project\src/game\image_processing.py", line 14, in preprocess_input_data
+    if len(img.shape) == 3:  # If the img array is 3-dimensional
+AttributeError: 'tuple' object has no attribute 'shape'
+
+2023-08-28 23:35:25,250 - ERROR - Traceback (most recent call last):
+  File "F:\Msc_Project\src/game\training.py", line 96, in wrapped_train_speed
+    train_speed(agent, screen, detection_info, episodes)
+  File "F:\Msc_Project\src/game\training.py", line 50, in train_speed
+    state = preprocess_input_data(screen)
+  File "F:\Msc_Project\src/game\image_processing.py", line 14, in preprocess_input_data
+    if len(img.shape) == 3:  # If the img array is 3-dimensional
+AttributeError: 'tuple' object has no attribute 'shape'
+

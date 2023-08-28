@@ -13,13 +13,17 @@ import tensorflow as tf
 sys.path.append(os.path.join(os.getcwd(), 'src/game/'))
 
 # Import agents responsible for steering and speed control
-import agent_steering
-import agent_speed
+from agents import SteeringAgent as SteeringAgent
+from agents import SpeedAgent as SpeedAgent
+from training import train_steering, train_speed, train_concurrently
 
 # Import libraries for window management and Jupyter notebook execution
 import pygetwindow as gw
 import nbformat
 from IPython.core.interactiveshell import InteractiveShell
+# from game_capture import GameEnvironment
+from game_env import GameEnvironment
+game_env = GameEnvironment()
 
 def is_game_running(window_title):
     """
@@ -69,8 +73,8 @@ def main():
         print("Please choose an option:")
         print("1. Train Steering Agent")
         print("2. Train Speed Agent")
-        print("3. Train Both Agents")
-        print("4. Test Controller")
+        print("3. Train Both Agents Concurrently")
+        print("4. Train both agents Sequentially")
         print("5. Exit")
 
         # Get user input for the desired action
@@ -96,7 +100,8 @@ def main():
             # - q_eval_name: Name of the evaluation Q-network model.
             # - q_target_name: Name of the target Q-network model.
             # - replace: Frequency (in terms of steps) of replacing target network with evaluation network.
-            steering_agent = agent_steering.Agent(
+            steering_agent = SteeringAgent(
+                game_env,
                 input_dims=6,
                 n_actions=2, 
                 mem_size=1000,
@@ -104,17 +109,18 @@ def main():
                 eps_min=0.01,
                 eps_dec=0.995,
                 gamma=0.99,
-                q_eval_name="q_eval_model",
-                q_target_name="q_target_model",
+                q_eval_name="steering_q_eval_model",
+                q_target_name="steering_q_target_model",
                 replace=100
             )
             # Train the steering agent for a specified number of episodes.
-            steering_agent.train(num_episodes=100)
+            train_steering(steering_agent, num_episodes=100)
 
         # Train the speed agent
         elif choice == "2":
             # Initialize the speed agent with parameters similar to the steering agent.
-            speed_agent = agent_speed.Agent(
+            speed_agent = SpeedAgent(
+                game_env,
                 input_dims=6,
                 n_actions=2, 
                 mem_size=1000,
@@ -122,17 +128,18 @@ def main():
                 eps_min=0.01,
                 eps_dec=0.995,
                 gamma=0.99,
-                q_eval_name="q_eval_model",
-                q_target_name="q_target_model",
+                q_eval_name="speed_q_eval_model",
+                q_target_name="speed_q_target_model",
                 replace=100
             )
             # Train the speed agent for a specified number of episodes.
-            speed_agent.train(num_episodes=100)
+            train_speed(speed_agent, num_episodes=100)
 
-        # Train both agents
+        # Train both agents concurrently
         elif choice == "3":
             # Initialize both the steering and speed agents with parameters similar to above.
-            steering_agent = agent_steering.Agent(
+            steering_agent = SteeringAgent(
+                game_env,
                 input_dims=6,
                 n_actions=2, 
                 mem_size=1000,
@@ -140,11 +147,12 @@ def main():
                 eps_min=0.01,
                 eps_dec=0.995,
                 gamma=0.99,
-                q_eval_name="q_eval_model",
-                q_target_name="q_target_model",
+                q_eval_name="steering_q_eval_model",
+                q_target_name="steering_q_target_model",
                 replace=100
             )
-            speed_agent = agent_speed.Agent(
+            speed_agent = SpeedAgent(
+                game_env,
                 input_dims=6,
                 n_actions=2, 
                 mem_size=1000,
@@ -152,18 +160,49 @@ def main():
                 eps_min=0.01,
                 eps_dec=0.995,
                 gamma=0.99,
-                q_eval_name="q_eval_model",
-                q_target_name="q_target_model",
+                q_eval_name="speed_q_eval_model",
+                q_target_name="speed_q_target_model",
                 replace=100
             )
             # Train both agents for a specified number of episodes.
-            steering_agent.train(num_episodes=100)
-            speed_agent.train(num_episodes=100)
+            print("Training both agents concurrently...")
+            train_concurrently(steering_agent, speed_agent, num_episodes=100)
 
 
-        # Test the controller by running the controller notebook
+        # Train both agents
         elif choice == "4":
-            run_notebook(os.path.join(os.getcwd(), 'src', 'game', 'controller.ipynb'))
+            # Initialize both the steering and speed agents with parameters similar to above.
+            steering_agent = SteeringAgent(
+                game_env,
+                input_dims=6,
+                n_actions=2, 
+                mem_size=1000,
+                eps=1.0,
+                eps_min=0.01,
+                eps_dec=0.995,
+                gamma=0.99,
+                q_eval_name="steering_q_eval_model",
+                q_target_name="steering_q_target_model",
+                replace=100
+            )
+            speed_agent = SpeedAgent(
+                game_env,
+                input_dims=6,
+                n_actions=2, 
+                mem_size=1000,
+                eps=1.0,
+                eps_min=0.01,
+                eps_dec=0.995,
+                gamma=0.99,
+                q_eval_name="speed_q_eval_model",
+                q_target_name="speed_q_target_model",
+                replace=100
+            )
+            # Train both agents for a specified number of episodes.
+            print("Training steering agent...")
+            steering_agent.train(num_episodes=100)
+            print("Training speed agent...")
+            speed_agent.train(num_episodes=100)
 
         # Exit the program
         elif choice == "5":

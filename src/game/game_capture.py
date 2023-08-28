@@ -15,7 +15,7 @@ if gpus:
     except RuntimeError as e:
         print(e)
 
-class GameCapture:
+class GameEnvironment:
     def __init__(self):
         """Initialize the game capture."""
         # Use mss to capture a screenshot of the game window
@@ -30,6 +30,8 @@ class GameCapture:
                 "width": game_window.width,
                 "height": game_window.height
             }
+            # Store the expected shape based on the game window's dimensions
+            self.expected_shape = (self.monitor['height'], self.monitor['width'], 3)
         else:
             raise ValueError("Could not find game window")
 
@@ -40,39 +42,64 @@ class GameCapture:
         # Convert the screenshot to a numpy array
         img = np.array(screenshot)
         # Check if the image was captured successfully
-        if img is None:
-            raise Exception("Failed to capture screenshot")
+        if img is None or img.size == 0:
+            raise Exception("Failed to capture screenshot or screenshot is empty")
+        
+        # Check if the image has the expected dimensions (e.g., height, width, channels)
+        if len(img.shape) != 3 or img.shape[2] != 4:
+            raise Exception(f"Unexpected image shape: {img.shape}")
         # Convert the image from RGBA to RGB
         img = img[:, :, :3]
+        if img.shape != self.expected_shape:
+            raise Exception(f"Unexpected image shape: {img.shape}")
         return img
 
     def speed_reward(self, position_red, position_blue, is_speed_up_colour, action):
-        """Calculate the reward based on the speed action taken."""
+        """
+        Compute the reward based on game state and action taken.
+
+        Parameters:
+        - is_speed_up_colour (bool): Whether the speed up color is detected.
+        - action (float): The action value taken by the agent.
+
+        Returns:
+        - reward (float): The computed reward.
+        """
+        # Base reward
+        reward = 0.0
+
+        # If the speed up color is detected, it means the agent should accelerate
         if is_speed_up_colour:
-            if action == 'accelerate':
-                return 1.0
-            elif action == 'brake':
-                return -1.0
-            else:
-                raise ValueError(f'Unknown action: {action}')
+            if action > 0:  # If the agent is accelerating
+                reward += 1.0
+            else:  # If the agent is not accelerating or braking
+                reward -= 1.0
+
+        # If the speed up color is not detected, it means the agent should maintain or decelerate
         else:
-            if action == 'brake':
-                return 1.0
-            elif action == 'accelerate':
-                return -1.0
-            else:
-                raise ValueError(f'Unknown action: {action}')
+            if action < 0:  # If the agent is braking or decelerating
+                reward += 0.5
+            elif action > 0:  # If the agent is still accelerating
+                reward -= 0.5
+
+        # Penalize extreme actions to encourage smoother adjustments
+        if abs(action) > 0.9:
+            reward -= 0.1
+
+        return reward
 
     def steering_reward(self, position_red, position_blue):
-        """Calculate the reward based on the steering action taken."""
         center = self.monitor['width'] // 2
         if position_red is not None:
             deviation = abs(position_red - center)
         elif position_blue is not None:
             deviation = abs(position_blue - center)
         else:
-            return -1.0
-        reward = 1.0 / (1 + deviation)
+            return -5.0  # Increased penalty for not detecting any chevron
+
+        # Reward is inversely proportional to the deviation from the center
+        # We'll square the inverse to emphasize the importance of being close to the center
+        reward = 1.0 / (1 + deviation**2)
         return reward
 
     def get_chevron_info(self, img):
@@ -82,16 +109,30 @@ class GameCapture:
             print("Error: One or more template images not found.")
             return None, None
         speed_up_colour = templates[0][0, 0]
+        img_copy = img.copy()  # Create a copy of the image
+        img_copy = img_copy.astype(np.uint8)  # Ensure data type is uint8
+
         results = [cv2.matchTemplate(img, template, cv2.TM_CCOEFF_NORMED) for template in templates]
-        threshold = 0.8
+        for result in results:
+            print("Max match value:", np.max(result))
+        threshold = 0.5
         locs = [np.where(result >= threshold) for result in results]
         loc = np.hstack(locs)
         if not loc[0].any() and not loc[1].any():
-            return None, None
+            return None, None, None
+        for i, template in enumerate(templates):
+            for pt in zip(*locs[i][::-1]):
+                cv2.rectangle(img_copy, pt, (pt[0] + template.shape[1], pt[1] + template.shape[0]), (0,0,255), 2)
+        cv2.imshow('Detected Chevrons', img_copy)
+        cv2.waitKey(1)  # Wait for 5 seconds
+        cv2.destroyAllWindows()
         position_red = loc[1][0] + templates[0].shape[1] // 2
         position_blue = loc[1][-1] + templates[0].shape[1] // 2
+        if position_red >= img.shape[0] or position_blue >= img.shape[1]:
+            print("Warning: Detected position is out of image bounds.")
+            return None, None, None
         colour_red = img[position_red, position_blue]
-        colour_blue = img[position_blue, position_blue]
+        colour_blue = img[position_red, position_blue]
         is_speed_up_colour = np.all(colour_red == speed_up_colour) or np.all(colour_blue == speed_up_colour)
         return position_red, position_blue, is_speed_up_colour
 
@@ -118,6 +159,7 @@ class GameCapture:
         self.draw_controller(overlay_img, actual_speed_action, position=(100, overlay_img.shape[0] - 100))
         self.draw_controller(overlay_img, actual_steering_action, position=(overlay_img.shape[1] - 100, overlay_img.shape[0] - 100))
         if predicted_speed_action is not None:
+            # print(f"Debug: Predicted Speed Action = {predicted_speed_action}")
             cv2.putText(overlay_img, f"Predicted Speed Action: {predicted_speed_action}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
         if actual_speed_action is not None:
             cv2.putText(overlay_img, f"Actual Speed Action: {actual_speed_action}", (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
