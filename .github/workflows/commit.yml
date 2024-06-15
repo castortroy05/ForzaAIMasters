@@ -17,4 +17,10 @@ jobs:
         git config --global user.email 'antony.lockhart@gmail.com'
         git add .
         git commit -m "Automated update $(date)"
-        git push
+    - name: Push changes
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      run: |
+        git remote set-url origin https://castortroy05:${GH_TOKEN}@github.com/castortroy05/ForzaAIMasters.git
+        git push origin main
+  
