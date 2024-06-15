@@ -2,7 +2,7 @@ name: Auto Commit
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # This schedule runs the action daily. Adjust the cron schedule as needed.
+    - cron: '*/60 * * * *'  # This schedule runs the action daily. Adjust the cron schedule as needed.
 
 jobs:
   commit:
@@ -17,10 +17,11 @@ jobs:
         git config --global user.email 'antony.lockhart@gmail.com'
         git add .
         git commit -m "Automated update $(date)"
-    - name: Push changes
+    - name: Pull and Push changes
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
       run: |
         git remote set-url origin https://castortroy05:${GH_TOKEN}@github.com/castortroy05/ForzaAIMasters.git
+        git pull origin main --rebase
         git push origin main
   
