@@ -282,7 +282,7 @@ srsly @ file:///C:/ci/srsly_1651573867195/work
 sse-starlette==0.10.3
 sseclient-py==1.7.2
 stack-data @ file:///opt/conda/conda-bld/stack_data_1646927590127/work
-starlette==0.20.4
+starlette==0.40.0
 statsmodels==0.13.2
 strawberry-graphql==0.138.1
 sympy==1.11.1
