@@ -180,7 +180,7 @@ numexpr @ file:///C:/b/abs_a7kbak88hk/croot/numexpr_1668713882979/work
 numpy==1.24.1
 oauthlib @ file:///C:/b/abs_44riqpe5gg/croot/oauthlib_1679489644705/work
 openai==0.27.2
-opencv-python-headless==4.7.0.72
+opencv-python-headless==4.8.1.78
 openpyxl==3.0.10
 opt-einsum @ file:///tmp/build/80754af9/opt_einsum_1621500238896/work
 orjson==3.8.10
