@@ -225,7 +225,7 @@ pyflakes==3.0.1
 Pygments @ file:///opt/conda/conda-bld/pygments_1644249106324/work
 PyJWT @ file:///C:/ci/pyjwt_1657529477795/work
 pymilvus==2.2.4
-pymongo==4.3.3
+pymongo==4.6.3
 pyOpenSSL @ file:///opt/conda/conda-bld/pyopenssl_1643788558760/work
 pyparsing==3.0.9
 pyppmd==1.0.0
