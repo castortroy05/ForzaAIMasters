@@ -15,7 +15,7 @@ autoflake==2.0.0
 Babel @ file:///C:/b/abs_a2shv_3tqi/croot/babel_1671782804377/work
 backcall @ file:///home/ktietz/src/ci/backcall_1611930011877/work
 beautifulsoup4 @ file:///C:/ci/beautifulsoup4_1650293028159/work
-black==23.3.0
+black==24.3.0
 bleach @ file:///opt/conda/conda-bld/bleach_1641577558959/work
 blinker==1.4
 blis==0.7.9
