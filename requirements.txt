@@ -218,7 +218,7 @@ pyasn1-modules==0.2.8
 pybcj==1.0.1
 pycodestyle==2.10.0
 pycparser @ file:///tmp/build/80754af9/pycparser_1636541352034/work
-pycryptodomex==3.17
+pycryptodomex==3.19.1
 pydantic @ file:///C:/b/abs_70leqwndat/croot/pydantic_1667416131535/work
 pydot==1.4.2
 pyflakes==3.0.1
