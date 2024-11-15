@@ -172,7 +172,7 @@ nbconvert @ file:///C:/b/abs_4av3q4okro/croot/nbconvert_1668450658054/work
 nbformat @ file:///C:/b/abs_85_3g7dkt4/croot/nbformat_1670352343720/work
 nest-asyncio @ file:///C:/b/abs_3a_4jsjlqu/croot/nest-asyncio_1672387322800/work
 networkx==3.0rc1
-nltk==3.8.1
+nltk==3.9
 nodeenv==1.7.0
 notebook @ file:///C:/b/abs_ca13hqvuzw/croot/notebook_1668179888546/work
 notebook_shim @ file:///C:/b/abs_ebfczttg6x/croot/notebook-shim_1668160590914/work
