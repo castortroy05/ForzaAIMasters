@@ -56,7 +56,7 @@ defusedxml @ file:///tmp/build/80754af9/defusedxml_1615228127516/work
 Deprecated==1.2.13
 dill==0.3.6
 distlib==0.3.6
-dnspython==2.3.0
+dnspython==2.6.1
 docker==6.0.1
 duckduckgo-search==2.8.6
 editdistance==0.6.0
