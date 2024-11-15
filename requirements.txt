@@ -183,7 +183,7 @@ openai==0.27.2
 opencv-python-headless==4.8.1.78
 openpyxl==3.0.10
 opt-einsum @ file:///tmp/build/80754af9/opt_einsum_1621500238896/work
-orjson==3.8.10
+orjson==3.9.15
 outcome==1.2.0
 packaging==22.0
 pandas @ file:///C:/b/abs_b9kefbuby2/croot/pandas_1677835593760/work
