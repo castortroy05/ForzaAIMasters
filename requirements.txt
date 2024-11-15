@@ -293,7 +293,7 @@ tenacity==8.2.2
 tensorboard==2.10.1
 tensorboard-data-server @ file:///C:/b/abs_2fhvpo862s/croot/tensorboard-data-server_1670853600144/work/tensorboard_data_server-0.6.1-py3-none-any.whl
 tensorboard-plugin-wit @ file:///C:/tf/b/tensorboard-plugin-wit_1660162132996/work/tensorboard_plugin_wit-1.8.1-py3-none-any.whl
-tensorflow==2.10.1
+tensorflow==2.12.1
 tensorflow-estimator @ file:///C:/Users/builder/adipietro/mc3/tf_env/conda-bld/tensorflow-estimator_1661811062276/work/tensorflow_estimator-2.9.0-py2.py3-none-any.whl
 tensorflow-gpu==2.12.0
 tensorflow-io-gcs-filesystem==0.28.0
