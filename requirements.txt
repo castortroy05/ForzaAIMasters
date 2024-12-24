@@ -120,7 +120,7 @@ ipywidgets @ file:///tmp/build/80754af9/ipywidgets_1634143127070/work
 isort==5.12.0
 itsdangerous==2.1.2
 jedi @ file:///C:/ci/jedi_1644315428305/work
-Jinja2==3.1.4
+Jinja2==3.1.5
 jmespath==1.0.1
 joblib @ file:///C:/b/abs_e60_bwl1v6/croot/joblib_1666298845728/work
 json5 @ file:///tmp/build/80754af9/json5_1624432770122/work
