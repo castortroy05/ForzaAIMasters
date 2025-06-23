@@ -9,6 +9,8 @@ def configure_tensorflow():
         try:
             for gpu in gpus:
                 tf.config.experimental.set_memory_growth(gpu, True)
-            tf.config.experimental.set_visible_devices(gpus[1], 'GPU')
+            # Select the first GPU if available to avoid index errors on
+            # systems with a single GPU.
+            tf.config.experimental.set_visible_devices(gpus[0], 'GPU')
         except RuntimeError as e:
             print(e)
