@@ -6,7 +6,9 @@ from controller import GameController
 from tensorflow.python.keras.models import load_model
 from collections import deque
 from learning import SteeringLearning
-from training import train_steering_agent
+# The training module exposes a function named `train_steering`.
+# Import that function instead of the non-existent `train_steering_agent`.
+from training import train_steering
 
 class Agent:
     def __init__(self, game_env, input_dims, n_actions, mem_size, eps, eps_min, eps_dec, gamma, q_eval_name, q_target_name, replace):

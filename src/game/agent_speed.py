@@ -8,7 +8,9 @@ from controller import GameController
 from collections import deque
 import random
 from learning import SpeedLearning
-from training import train_speed_agent
+# The correct training function is named `train_speed`. Import it
+# instead of the non-existent `train_speed_agent`.
+from training import train_speed
 
 from game_capture import GameEnvironment
         
@@ -89,7 +91,7 @@ class Agent:
         Parameters:
         - num_episodes (int): The number of episodes to train the agent for.
         """
-        train_speed_agent(self, num_episodes)
+        train_speed(self, num_episodes)
 
     def save_weights(self, path):
         """
