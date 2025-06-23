@@ -3,7 +3,8 @@ import numpy as np
 import random
 
 class BaseLearning:
-    def __init__(self, Q_eval, Q_target, memory, gamma, replace, expected_shape):
+    def __init__(self, Q_eval, Q_target, memory, gamma, replace, expected_shape,
+                 eps, eps_min, eps_dec):
         self.Q_eval = Q_eval
         self.Q_target = Q_target
         self.memory = memory
@@ -11,6 +12,10 @@ class BaseLearning:
         self.replace = replace
         self.expected_shape = expected_shape
         self.learn_step = 0
+        # Epsilon parameters used in the learning loop
+        self.eps = eps
+        self.eps_min = eps_min
+        self.eps_dec = eps_dec
 
     def preprocess_input_data(self, img):
         return preprocess_input_data(img)
