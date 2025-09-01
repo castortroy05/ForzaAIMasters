@@ -315,7 +315,7 @@ torchvision==0.14.1
 tornado @ file:///C:/ci/tornado_1662476985533/work
 tqdm @ file:///C:/b/abs_0axbz66qik/croots/recipe/tqdm_1664392691071/work
 traitlets @ file:///C:/b/abs_e5m_xjjl94/croot/traitlets_1671143896266/work
-transformers==4.38.0
+transformers==4.48.0
 trio==0.22.0
 trio-websocket==0.10.2
 typer @ file:///C:/ci/typer_1651228630216/work
