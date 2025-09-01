@@ -61,7 +61,17 @@ class SteeringAgent(BaseAgent):
         return action
 
     def learn(self, action):
-        self.learning = SteeringLearning(self.Q_eval, self.Q_target, self.memory, self.gamma, self.replace, self.expected_shape)
+        self.learning = SteeringLearning(
+            self.Q_eval,
+            self.Q_target,
+            self.memory,
+            self.gamma,
+            self.replace,
+            self.expected_shape,
+            self.eps,
+            self.eps_min,
+            self.eps_dec,
+        )
         self.learning.learn(action)
 
     def simulate_action(self, action):
@@ -81,7 +91,17 @@ class SpeedAgent(BaseAgent):
         return chosen_action
 
     def learn(self, action):
-        self.learning = SpeedLearning(self.Q_eval, self.Q_target, self.memory, self.gamma, self.replace, self.expected_shape)
+        self.learning = SpeedLearning(
+            self.Q_eval,
+            self.Q_target,
+            self.memory,
+            self.gamma,
+            self.replace,
+            self.expected_shape,
+            self.eps,
+            self.eps_min,
+            self.eps_dec,
+        )
         self.learning.learn(action)
 
     def simulate_action(self, action):
