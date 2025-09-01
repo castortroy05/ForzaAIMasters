@@ -96,7 +96,7 @@ greenlet==2.0.2
 grpcio @ file:///C:/b/abs_ccut8qek12/croot/grpc-suite_1681912611694/work
 grpcio-tools==1.47.5
 gTTS==2.3.1
-h11==0.14.0
+h11==0.16.0
 h2==4.1.0
 h5py @ file:///C:/ci/h5py_1659089830381/work
 hpack==4.0.0
