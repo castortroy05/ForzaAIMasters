@@ -347,4 +347,29 @@ wsproto==1.2.0
 xmltodict==0.13.0
 yarl==1.8.2
 
+# Deep Learning
+tensorflow>=2.12.0
+keras>=2.9.0
 
+# Computer Vision
+opencv-python>=4.8.0
+numpy>=1.24.0
+
+# Screen Capture
+mss>=9.0.0
+
+# Game Controller Simulation
+vgamepad>=0.0.8
+
+# Window Management
+pygetwindow>=0.0.9
+
+# Optional: Jupyter support (for notebooks)
+jupyter>=1.0.0
+ipykernel>=6.0.0
+
+# Optional: Visualization
+matplotlib>=3.7.0
+
+# Optional: Utilities
+tqdm>=4.65.0
