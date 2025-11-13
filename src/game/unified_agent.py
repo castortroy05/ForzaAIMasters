@@ -241,7 +241,9 @@ class UnifiedRacingAgent:
                 dones.append(done)
 
         # Check if we have enough valid experiences after filtering
-        if len(states) < self.batch_size // 2:  # At least half of batch should be valid
+        MIN_TRAIN_BATCH = max(16, self.batch_size // 2)  # Minimum batch size for stable learning
+        actual_batch_size = len(states)
+        if actual_batch_size < MIN_TRAIN_BATCH:
             return None
 
         # Convert to numpy arrays
