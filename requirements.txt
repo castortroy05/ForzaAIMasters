@@ -1,29 +1,35 @@
-# Unified Racing Agent - Core Dependencies
-# Minimal requirements for running the racing AI
+# Modern Racing Agent - Dependencies (2024-2025)
+# State-of-the-art deep RL and computer vision
 
-# Deep Learning
+# === CORE DEEP LEARNING ===
 tensorflow>=2.12.0
 keras>=2.9.0
+tensorflow-probability>=0.20.0  # Required for PPO
 
-# Computer Vision
+# === COMPUTER VISION ===
 opencv-python>=4.8.0
 numpy>=1.24.0
 
-# Screen Capture
+# === SCREEN CAPTURE ===
 mss>=9.0.0
 
-# Game Controller Simulation
+# === GAME CONTROLLER ===
 vgamepad>=0.0.8
 
-# Window Management
+# === WINDOW MANAGEMENT ===
 pygetwindow>=0.0.9
 
-# Optional: Jupyter support (for notebooks)
+# === TRAINING & MONITORING ===
+tensorboard>=2.12.0  # Modern training visualization
+tqdm>=4.65.0         # Progress bars
+
+# === OPTIONAL: Jupyter/Notebooks ===
 jupyter>=1.0.0
 ipykernel>=6.0.0
-
-# Optional: Visualization
 matplotlib>=3.7.0
 
-# Optional: Utilities
-tqdm>=4.65.0
+# === OPTIONAL: Enhanced Features ===
+# Uncomment for advanced features:
+# Pillow>=10.0.0              # Image processing
+# scipy>=1.10.0               # Scientific computing
+# pandas>=2.0.0               # Data analysis
