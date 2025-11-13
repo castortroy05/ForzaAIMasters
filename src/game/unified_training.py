@@ -79,6 +79,7 @@ def train_racing_agent(
     print(f"Target network updates: Every {agent.target_update_freq} steps\n")
 
     start_time = time.time()
+    episode = 0  # Initialize to prevent NameError in exception handlers
 
     try:
         for episode in range(num_episodes):
