@@ -392,7 +392,7 @@ def evaluate_agent(agent, num_episodes=10, render=True):
                         position_red=position_red if 'position_red' in locals() else None,
                         position_blue=position_blue if 'position_blue' in locals() else None
                     )
-                except:
+                except Exception:
                     pass
 
         eval_rewards.append(episode_reward)
