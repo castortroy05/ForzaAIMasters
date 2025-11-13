@@ -63,7 +63,7 @@ editdistance==0.6.0
 en-core-web-trf @ https://github.com/explosion/spacy-models/releases/download/en_core_web_trf-3.4.1/en_core_web_trf-3.4.1-py3-none-any.whl
 entrypoints @ file:///C:/ci/entrypoints_1649926676279/work
 et-xmlfile==1.1.0
-eventlet==0.35.2
+eventlet==0.40.3
 exceptiongroup==1.1.1
 executing @ file:///opt/conda/conda-bld/executing_1646925071911/work
 fastjsonschema @ file:///C:/Users/BUILDE~1/AppData/Local/Temp/abs_ebruxzvd08/croots/recipe/python-fastjsonschema_1661376484940/work
