@@ -220,11 +220,12 @@ def continue_training(game_env):
         agent.load_model(checkpoint_path)
 
         # Try to load replay buffer
-        episode_num = checkpoint_file.split('_')[2].split('.')[0]
-        replay_file = f'replay_buffer_episode_{episode_num}.pkl'
         try:
+            episode_num = checkpoint_file.split('_')[2].split('.')[0]
+            replay_file = f'replay_buffer_episode_{episode_num}.pkl'
             agent.load_memory(replay_file)
-        except:
+        except (IndexError, ValueError) as e:
+            print(f"Could not parse episode number from filename: {e}")
             print("Could not load replay buffer (starting fresh)")
 
         print("Checkpoint loaded successfully!")
