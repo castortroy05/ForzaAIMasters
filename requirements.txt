@@ -23,7 +23,7 @@ bokeh==2.4.3
 boto3==1.26.135
 botocore==1.29.135
 Bottleneck @ file:///C:/Windows/Temp/abs_3198ca53-903d-42fd-87b4-03e6d03a8381yfwsuve8/croots/recipe/bottleneck_1657175565403/work
-Brotli==1.0.9
+Brotli==1.2.0
 brotlipy==0.7.0
 cachetools==5.2.0
 catalogue @ file:///C:/ci/catalogue_1651116429009/work
