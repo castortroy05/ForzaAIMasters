@@ -217,22 +217,18 @@ class UnifiedRewardSystem:
         - avg_reward (float): Average reward over recent episodes
         - avg_episode_length (int): Average episode length
         """
-        if self.difficulty != 'progressive':
-            return  # Only auto-adjust in progressive mode
+        if 'locked' in self.difficulty:
+            return  # Don't regress or change once locked at a level
 
-        # Criteria for difficulty progression
-        if avg_reward > 50 and avg_episode_length > 500:
-            # Agent is doing well - transition to intermediate
-            self.weights = self.reward_weights['intermediate']
-            print("Difficulty increased to INTERMEDIATE")
-            self.difficulty = 'intermediate_locked'
-
-        elif avg_reward > 150 and avg_episode_length > 1000:
-            # Agent is excelling - transition to advanced
+        # Criteria for difficulty progression (check advanced first)
+        if avg_reward > 150 and avg_episode_length > 1000:
             self.weights = self.reward_weights['advanced']
             print("Difficulty increased to ADVANCED")
             self.difficulty = 'advanced_locked'
-
+        elif avg_reward > 50 and avg_episode_length > 500:
+            self.weights = self.reward_weights['intermediate']
+            print("Difficulty increased to INTERMEDIATE")
+            self.difficulty = 'intermediate_locked'
     def reset_episode(self):
         """Reset episode-specific state."""
         self.prev_speed = 0.0
