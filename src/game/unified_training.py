@@ -375,6 +375,8 @@ def evaluate_agent(agent, num_episodes=10, render=True):
                 if position_red is not None or position_blue is not None:
                     episode_reward += 1.0
             except:
+                # Ignore errors in chevron info extraction during evaluation.
+                # This ensures evaluation continues even if chevron info is unavailable or malformed.
                 pass
 
             done = agent.game_env.is_done(next_screen)
