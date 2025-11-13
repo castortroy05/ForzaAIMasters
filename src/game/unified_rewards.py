@@ -125,7 +125,7 @@ class UnifiedRewardSystem:
             deviation = self.center  # Maximum deviation
             position_reward = -2.0  # Penalty for poor visibility
 
-        if position_red is not None or position_blue is not None:
+        elif position_red is not None or position_blue is not None:
             # Inverse squared deviation - heavily rewards staying centered
             # Max reward when centered, drops off quickly when off-center
             position_reward = 1.0 / (1.0 + (deviation / 100.0) ** 2)
