@@ -21,19 +21,29 @@ class Detection:
         locs = [np.where(result >= threshold) for result in results]
         loc = np.hstack(locs)
         
-        if not loc[0].any() and not loc[1].any():
+        # Fixed: Check if arrays are empty properly
+        if loc[0].size == 0 or loc[1].size == 0:
             return None, None, None
-        
+
         position_red = loc[1][0] + templates[0].shape[1] // 2
         position_blue = loc[1][-1] + templates[0].shape[1] // 2
-        
-        # Boundary check
-        if position_red >= img.shape[0] or position_blue >= img.shape[1]:
+
+        # Fixed: Correct boundary check - positions are WIDTH (x-coordinates), compare to width
+        if position_red >= img.shape[1] or position_blue >= img.shape[1]:
             print("Warning: Detected position is out of image bounds.")
             return None, None, None
-        
-        colour_red = img[position_red, position_blue]
-        colour_blue = img[position_red, position_blue]
+
+        # Fixed: Sample colors from correct locations - need y-coordinates
+        # Get y-coordinates from detected locations
+        y_red = loc[0][0] + templates[0].shape[0] // 2
+        y_blue = loc[0][-1] + templates[0].shape[0] // 2
+
+        # Ensure y-coordinates are also in bounds
+        if y_red >= img.shape[0] or y_blue >= img.shape[0]:
+            return None, None, None
+
+        colour_red = img[y_red, position_red]
+        colour_blue = img[y_blue, position_blue]
         
         is_speed_up_colour = np.all(colour_red == speed_up_colour) or np.all(colour_blue == speed_up_colour)
         
