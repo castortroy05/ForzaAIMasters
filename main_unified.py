@@ -56,21 +56,39 @@ def is_game_running(window_title="Forza Motorsport 7"):
 def print_header():
     """Print welcome header."""
     print("\n" + "="*80)
-    print("FORZA MOTORSPORT 7 - UNIFIED RACING AGENT".center(80))
-    print("Deep Reinforcement Learning with Coordinated Control".center(80))
+    print("🏎️  FORZA MOTORSPORT 7 - UNIFIED RACING AGENT  🏁".center(80))
+    print("Deep Q-Learning with Coordinated Control".center(80))
     print("="*80 + "\n")
 
 
 def print_menu():
-    """Print main menu options."""
-    print("\nPlease choose an option:")
-    print("1. Train New Agent (Novice to Pro)")
-    print("2. Continue Training from Checkpoint")
-    print("3. Evaluate Trained Agent")
-    print("4. Quick Training (100 episodes)")
-    print("5. Full Training (1000 episodes)")
-    print("6. System Info & Configuration")
-    print("7. Exit")
+    """Print main menu options with improved visual organization."""
+    print("\n" + "─"*80)
+    print("  SELECT OPTION".center(80))
+    print("─"*80 + "\n")
+
+    # Training Options
+    print("┌─ TRAINING ─────────────────────────────────────────────────────────┐")
+    print("│                                                                      │")
+    print("│  1. 🎓 Train New Agent             Novice → Pro (default 1000 eps)  │")
+    print("│  2. 🔄 Continue from Checkpoint    Resume previous training         │")
+    print("│  4. ⚡ Quick Training              Fast mode (100 episodes)         │")
+    print("│  5. 🏆 Full Training               Complete training (1000 eps)     │")
+    print("│                                                                      │")
+    print("└──────────────────────────────────────────────────────────────────────┘")
+    print()
+
+    # Evaluation & Management
+    print("┌─ EVALUATION & MANAGEMENT ──────────────────────────────────────────┐")
+    print("│                                                                      │")
+    print("│  3. 📈 Evaluate Trained Agent      Test your best model             │")
+    print("│  6. ℹ️  System Information          Check GPU/TensorFlow            │")
+    print("│  7. 🚪 Exit                         Quit application                │")
+    print("│                                                                      │")
+    print("└──────────────────────────────────────────────────────────────────────┘")
+    print()
+
+    print("💡 TIP: Start with option 1 to train a new agent from scratch")
     print()
 
 

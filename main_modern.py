@@ -45,29 +45,50 @@ import pygetwindow as gw
 def print_header():
     """Print welcome header."""
     print("\n" + "="*80)
-    print("FORZA MOTORSPORT 7 - MODERN RACING AGENT (2024-2025)".center(80))
+    print("🏎️  FORZA MOTORSPORT 7 - MODERN RACING AGENT (2024-2025)  🏁".center(80))
     print("State-of-the-Art Deep Reinforcement Learning".center(80))
     print("="*80 + "\n")
 
 
 def print_menu():
-    """Print main menu."""
-    print("\nChoose training mode:")
-    print("\n=== CUTTING-EDGE (2024-2025 Latest) ===")
-    print("1. 🔬 DINOv2 + YOLO Hybrid (Multi-Modal) - ABSOLUTE CUTTING-EDGE!")
-    print("2. 🔬 DINOv2 (Meta 2023) - Better than ViT")
-    print("3. 🎯 YOLO Object Detection - Racing-specific")
-    print("4. 🤖 Decision Transformer - Sequence Modeling (No value functions!)")
-    print("\n=== MODERN (2020-2023) ===")
-    print("5. Vision Transformer (ViT) - Attention-based")
-    print("6. EfficientNetV2 - Fast & efficient")
-    print("7. ConvNeXt - Modern CNN")
-    print("\n=== SIMPLE ===")
-    print("8. Simple Features (testing)")
-    print("\n=== MANAGEMENT ===")
-    print("9. Evaluate Trained Model")
-    print("10. System Information")
-    print("11. Exit")
+    """Print main menu with improved visual organization."""
+    print("\n" + "─"*80)
+    print("  SELECT TRAINING MODE".center(80))
+    print("─"*80 + "\n")
+
+    # Cutting-Edge Section
+    print("┌─ CUTTING-EDGE (2024-2025) ─────────────────────────────────────────┐")
+    print("│                                                                      │")
+    print("│  1. 🚀 DINOv2 + YOLO Hybrid        Absolute best! Multi-modal       │")
+    print("│  2. 🔬 DINOv2 Only                 Meta 2023, better than ViT       │")
+    print("│  3. 🎯 YOLO Object Detection       Racing-specific objects          │")
+    print("│  4. 🤖 Decision Transformer        Experimental sequence modeling   │")
+    print("│                                                                      │")
+    print("└──────────────────────────────────────────────────────────────────────┘")
+    print()
+
+    # Modern Section
+    print("┌─ MODERN (2020-2023) ───────────────────────────────────────────────┐")
+    print("│                                                                      │")
+    print("│  5. 👁️  Vision Transformer          Attention-based, slower         │")
+    print("│  6. ⚡ EfficientNetV2              Fast & efficient, recommended    │")
+    print("│  7. 🌐 ConvNeXt                    Modern CNN architecture          │")
+    print("│                                                                      │")
+    print("└──────────────────────────────────────────────────────────────────────┘")
+    print()
+
+    # Simple & Management Sections
+    print("┌─ OTHER OPTIONS ────────────────────────────────────────────────────┐")
+    print("│                                                                      │")
+    print("│  8. 📊 Simple Features             Fast testing mode                │")
+    print("│  9. 📈 Evaluate Trained Model      Test a saved model               │")
+    print("│ 10. ℹ️  System Information          Check GPU/TensorFlow            │")
+    print("│ 11. 🚪 Exit                         Quit application                │")
+    print("│                                                                      │")
+    print("└──────────────────────────────────────────────────────────────────────┘")
+    print()
+
+    print("💡 TIP: For best performance, choose option 1 (DINOv2 + YOLO Hybrid)")
     print()
 
 
