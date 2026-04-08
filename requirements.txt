@@ -209,7 +209,7 @@ preshed @ file:///C:/ci/preshed_1651222371453/work
 priority==2.0.0
 prometheus-client @ file:///C:/Windows/TEMP/abs_ab9nx8qb08/croots/recipe/prometheus_client_1659455104602/work
 prompt-toolkit @ file:///C:/b/abs_6coz5_9f2s/croot/prompt-toolkit_1672387908312/work
-protobuf==3.20.3
+protobuf==5.29.6
 psutil @ file:///C:/Windows/Temp/abs_b2c2fd7f-9fd5-4756-95ea-8aed74d0039flsd9qufz/croots/recipe/psutil_1656431277748/work
 pure-eval @ file:///opt/conda/conda-bld/pure_eval_1646925070566/work
 py7zr==0.20.5
