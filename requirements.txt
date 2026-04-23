@@ -71,7 +71,7 @@ fastrlock==0.8.1
 fiftyone==0.20.1
 fiftyone-brain==0.11.0
 fiftyone-db==0.4.0
-filelock==3.9.0
+filelock==3.20.3
 flake8==6.0.0
 Flask==2.2.5
 Flask-Cors==4.0.2
